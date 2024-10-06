@@ -1,0 +1,138 @@
+<html><head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        font-family: arial;
+      }
+
+      .cursor-mask {
+        height: 100vh;
+        width: 100vw;
+      }
+
+      .background-rando {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-image: url(./cocomelon-outside.jpg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        cursor: crosshairs;
+      }
+
+      .maskington {
+        overflow: hidden;
+        cursor: none;
+        position: fixed;
+        z-index: 10;
+        border-radius: 50%;
+        font-size: 56px;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(-50%, -50%);
+        transition: width 0.5s, height 0.5s;
+      }
+
+      .maskington::before {
+        content: '+';
+        transform: translate(-50%, -50%) rotate(0deg);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        display: block;
+        z-index: 10000;
+        color: #fff;
+        text-shadow: 0 0 7px rgba(0, 0, 0, 1);
+        transition: 0.5s;
+      }
+
+      .maskington.open {
+        width: 200vw;
+        height: 200vh;
+        border-radius: 0;
+      }
+
+      .maskington.open::before {
+        content: '+';
+        transform: translate(-50%, -50%) rotate(45deg);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        display: block;
+        z-index: 10000;
+        color: #fff;
+        text-shadow: 0 0 7px rgba(0, 0, 0, 1);
+        transition: 0.5s;
+      }
+
+      .maskington .module {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1000;
+        background-color: #fca500;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        background-image: url(./cocomelon-inside.jpg);
+        background-color: white;
+      }
+
+      .maskington .module .text-side {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        margin: 0 auto;
+        padding: 40px;
+        font-size: 14px;
+        width: 100%;
+        max-width: 480px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+
+    <script>
+      var onmousemove = function (e) {
+        $('.maskington').css({
+          left: e.clientX + 'px',
+          top: e.clientY + 'px',
+          'background-position':
+            -e.clientX / 100 + 'px ' + -e.clientY / 100 + 'px',
+        })
+        $('.maskington .module').css({
+          transform: 'translate(' + -e.clientX + 'px, ' + -e.clientY + 'px)',
+        })
+
+        $('.maskington').on('click', function () {
+          $(this).toggleClass('open')
+        })
+      }
+
+      document.addEventListener('mousemove', onmousemove)
+    </script>
+  </head>
+  <body>
+    <section class="cursor-mask">
+      <div class="background-rando"></div>
+
+      <div class="maskington" style="left: 1180px; top: 380px; background-position: -11.8px -3.8px;">
+        <div class="module" style="transform: translate(-1180px, -380px);"></div>
+      </div>
+    </section>
+  
+
+</body></html>
